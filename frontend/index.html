@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Movie Finder</title>
+</head>
+<body>
+<h1>Recherche avancée de films</h1>
+
+<label>Acteurs: <input id="actor" type="text" list="actorList"></label>
+<datalist id="actorList"></datalist>
+
+<label>Réalisateurs: <input id="director" type="text" list="directorList"></label>
+<datalist id="directorList"></datalist>
+
+<label>Genres:
+  <select id="genre" multiple>
+    <option>Drama</option>
+    <option>Action</option>
+    <option>Comedy</option>
+    <option>Horror</option>
+    <option>Romance</option>
+    <option>Sci-Fi</option>
+  </select>
+</label>
+
+<label>Langues:
+  <select id="language" multiple>
+    <option>English</option>
+    <option>French</option>
+    <option>German</option>
+    <option>Spanish</option>
+  </select>
+</label>
+
+<label>Note minimale: <input type="number" id="min_rating" step="0.1" min="0" max="5"></label>
+<button id="searchBtn">Rechercher</button>
+
+<table border="1" id="results">
+<thead>
+<tr>
+<th>Title</th><th>Director</th><th>Actors</th><th>Genres</th><th>Language</th><th>Rating</th><th>Runtime</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
