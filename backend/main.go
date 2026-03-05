@@ -1,21 +1,19 @@
 package main
 
 import (
-	"movie-api/handlers"
+    "log"
 
-	"github.com/gin-gonic/gin"
+    "github.com/gin-gonic/gin"
+
+    "movie-api/handlers" // <<== ici on met ton module + dossier
 )
 
 func main() {
-	r := gin.Default()
+    r := gin.Default()
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+    r.GET("/movies", handlers.GetMovies)
+    r.GET("/suggest", handlers.Suggest)
 
-	r.GET("/movies", handlers.GetMovies)
-
-	r.Run(":8082")
+    log.Println("Server running on :8081")
+    r.Run(":8081")
 }
