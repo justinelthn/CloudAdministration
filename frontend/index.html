@@ -1,33 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Movie Finder — Recherche avancée de films par acteurs, réalisateurs, genres et note">
-<title>Movie Finder</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Finder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="container">
-  <h1>🎬 Movie Finder</h1>
-  <p class="subtitle">Recherche avancée de films</p>
+  <h1>Movie Finder</h1>
 
   <div class="filters">
-    <div class="filter-group">
-      <label for="actor">Acteurs</label>
-      <input id="actor" type="text" list="actorList" placeholder="Ex: Leonardo DiCaprio">
-      <datalist id="actorList"></datalist>
-    </div>
-
-    <div class="filter-group">
-      <label for="director">Réalisateurs</label>
-      <input id="director" type="text" list="directorList" placeholder="Ex: Christopher Nolan">
-      <datalist id="directorList"></datalist>
-    </div>
-
-    <div class="filter-group">
-      <label for="genre">Genres</label>
-      <select id="genre" multiple>
+    <label>Réalisateur <input id="director" type="text" placeholder="Ex: Nolan"></label>
+    <label>Acteur <input id="actor" type="text" placeholder="Ex: DiCaprio"></label>
+    <label>Genre
+      <select id="genre">
+        <option value="">Tous</option>
         <option>Drama</option>
         <option>Action</option>
         <option>Comedy</option>
@@ -38,11 +27,10 @@
         <option>Animation</option>
         <option>Documentary</option>
       </select>
-    </div>
-
-    <div class="filter-group">
-      <label for="language">Langues</label>
-      <select id="language" multiple>
+    </label>
+    <label>Langue
+      <select id="language">
+        <option value="">Toutes</option>
         <option>English</option>
         <option>French</option>
         <option>German</option>
@@ -50,29 +38,28 @@
         <option>Japanese</option>
         <option>Korean</option>
       </select>
-    </div>
-
-    <div class="filter-group">
-      <label for="min_rating">Note minimale</label>
-      <input type="number" id="min_rating" step="0.1" min="0" max="5" placeholder="Ex: 3.5">
-    </div>
-
-    <button id="searchBtn">🔍 Rechercher</button>
+    </label>
+    <label>Note min <input id="min_rating" type="number" step="0.1" min="0" max="5" placeholder="3.5"></label>
+    <button id="searchBtn">Rechercher</button>
   </div>
 
-  <div id="error-msg" class="error hidden"></div>
-  <p id="result-count" class="result-count hidden"></p>
+  <p id="info"></p>
 
   <table id="results">
     <thead>
       <tr>
-        <th>Titre</th><th>Réalisateur</th><th>Acteurs</th><th>Genres</th><th>Langue</th><th>Note</th><th>Durée (min)</th>
+        <th>Titre</th>
+        <th>Réalisateur</th>
+        <th>Acteurs</th>
+        <th>Genres</th>
+        <th>Langue</th>
+        <th>Note</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
-</div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
