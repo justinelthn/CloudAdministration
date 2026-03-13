@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<title>Movie Finder</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Finder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1>Recherche avancée de films</h1>
+  <h1>Movie Finder</h1>
 
-<label>Acteurs: <input id="actor" type="text" list="actorList"></label>
-<datalist id="actorList"></datalist>
+  <div class="filters">
+    <label>Réalisateur <input id="director" type="text" placeholder="Ex: Nolan"></label>
+    <label>Acteur <input id="actor" type="text" placeholder="Ex: DiCaprio"></label>
+    <label>Genre
+      <select id="genre">
+        <option value="">Tous</option>
+        <option>Drama</option>
+        <option>Action</option>
+        <option>Comedy</option>
+        <option>Horror</option>
+        <option>Romance</option>
+        <option>Sci-Fi</option>
+        <option>Thriller</option>
+        <option>Animation</option>
+        <option>Documentary</option>
+      </select>
+    </label>
+    <label>Langue
+      <select id="language">
+        <option value="">Toutes</option>
+        <option>English</option>
+        <option>French</option>
+        <option>German</option>
+        <option>Spanish</option>
+        <option>Japanese</option>
+        <option>Korean</option>
+      </select>
+    </label>
+    <label>Note min <input id="min_rating" type="number" step="0.1" min="0" max="5" placeholder="3.5"></label>
+    <button id="searchBtn">Rechercher</button>
+  </div>
 
-<label>Réalisateurs: <input id="director" type="text" list="directorList"></label>
-<datalist id="directorList"></datalist>
+  <p id="info"></p>
 
-<label>Genres:
-  <select id="genre" multiple>
-    <option>Drama</option>
-    <option>Action</option>
-    <option>Comedy</option>
-    <option>Horror</option>
-    <option>Romance</option>
-    <option>Sci-Fi</option>
-  </select>
-</label>
+  <table id="results">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Réalisateur</th>
+        <th>Acteurs</th>
+        <th>Genres</th>
+        <th>Langue</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-<label>Langues:
-  <select id="language" multiple>
-    <option>English</option>
-    <option>French</option>
-    <option>German</option>
-    <option>Spanish</option>
-  </select>
-</label>
-
-<label>Note minimale: <input type="number" id="min_rating" step="0.1" min="0" max="5"></label>
-<button id="searchBtn">Rechercher</button>
-
-<table border="1" id="results">
-<thead>
-<tr>
-<th>Title</th><th>Director</th><th>Actors</th><th>Genres</th><th>Language</th><th>Rating</th><th>Runtime</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
