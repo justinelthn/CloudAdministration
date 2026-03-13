@@ -26,7 +26,7 @@ var allowedSuggestFields = map[string]bool{
 func init() {
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
-		dsn = "user=come dbname=movies_db sslmode=disable"
+		dsn = "user=justineletheno dbname=movies_db sslmode=disable"
 	}
 
 	var err error
