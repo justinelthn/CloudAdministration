@@ -55,11 +55,21 @@ Ouvrir `frontend/index.html` dans un navigateur pour utiliser l'interface.
 | `page`      | int    | Page (défaut: 1)               |
 | `limit`     | int    | Résultats par page (défaut: 50, max: 200) |
 
-## Docker
+## Architecture Distribuée (Docker Compose)
+
+Pour le projet d'administration cloud, le système peut être déployé sur plusieurs serveurs en parallèle derrière un Load Balancer (NGINX) avec une base de données isolée et indexée.
 
 ```bash
-docker build -t movie-finder .
-docker run -p 8081:8081 -e DATABASE_URL="host=host.docker.internal user=justineletheno dbname=movies_db sslmode=disable" movie-finder
+# 1. Démarrer l'architecture (DB + 3 API + NGINX)
+docker-compose up -d --build
+
+# 2. Attendre quelques secondes que la DB initialise les données du CSV
+# 3. Lancer le test de charge massif (100k requêtes)
+cd backend
+go run cmd/loadtest/main.go -n 100000 -c 1000
+
+# 4. Éteindre le cluster
+docker-compose down
 ```
 
 ## Load Testing

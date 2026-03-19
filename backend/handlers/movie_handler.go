@@ -8,9 +8,23 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+)
+
+// Cache Structure
+type CacheItem struct {
+	Value      []Movie
+	Expiration int64
+}
+
+var (
+	movieCache = make(map[string]CacheItem)
+	cacheMutex sync.RWMutex
+	cacheTTL   = 60 * time.Second // 60 seconds TTL
 )
 
 var db *sql.DB
@@ -54,6 +68,21 @@ type Movie struct {
 
 // GET /movies?actors=X&directors=Y&genres=A&languages=L&min_rating=R&page=1&limit=50
 func GetMovies(c *gin.Context) {
+	// Cache Key Logic: use the RawQuery string which contains all filters and pagination
+	cacheKey := "movies:" + c.Request.URL.RawQuery
+
+	// Fast Path: Check Cache First
+	cacheMutex.RLock()
+	item, found := movieCache[cacheKey]
+	cacheMutex.RUnlock()
+
+	if found && time.Now().UnixNano() < item.Expiration {
+		// Cache Hit
+		c.JSON(http.StatusOK, item.Value)
+		return
+	}
+
+	// Cache Miss: Proceed to Data Fetch
 	actors := c.QueryArray("actors")
 	directors := c.QueryArray("directors")
 	genres := c.QueryArray("genres")
@@ -134,6 +163,15 @@ func GetMovies(c *gin.Context) {
 		m.Genres = strings.Split(genresStr, ";")
 		movies = append(movies, m)
 	}
+
+	// Save to Cache
+	cacheMutex.Lock()
+	movieCache[cacheKey] = CacheItem{
+		Value:      movies,
+		Expiration: time.Now().Add(cacheTTL).UnixNano(),
+	}
+	cacheMutex.Unlock()
+
 	c.JSON(http.StatusOK, movies)
 }
 
